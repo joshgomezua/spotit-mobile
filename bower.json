@@ -1,0 +1,17 @@
+{
+  "name": "spotit-mobile",
+  "description": "Spot-it lightweight mobile web application",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "^1.0.21",
+    "vue-router": "^0.7.13",
+    "vue-resource": "^0.7.0"
+  }
+}
