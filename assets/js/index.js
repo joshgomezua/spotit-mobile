@@ -37,6 +37,12 @@
 				btnenabled: true
 			};
 		},
+		created: function() {
+			this.$parent.setState("Login");
+			/// for testing
+			this.signin.emailId = 'stefan.miroslav6@gmail.com';
+			this.signin.password = 'dkagh123';
+		},
 		methods: {
 			login: function() {
 				this.btnlabel = 'Logging in...';
@@ -64,9 +70,16 @@
 
 	var getCoordinateComponent = Vue.component("getcoordinate-component", {
 		template: "#getcoordinate-template",
+		data: function() {
+			return {
+				status: ""
+			}
+		},
 		created: function() {
+			this.$parent.setState("Request Geolocation");
+			this.status = "Getting your geolocation...";
 			if(!navigator.geolocation) {
-				alert("Geolocation is not supported by your browser");
+				this.status = "Geolocation is not supported by your browser";
 				this.redirectToHome();
 				return;
 			}
@@ -90,7 +103,7 @@
 			};
 
 			function error() {
-				alert("Unable to retrieve your location");
+				this.status = "Unable to retrieve your location";
 				_this.redirectToHome();
 			};
 
@@ -98,7 +111,9 @@
 		},
 		methods: {
 			redirectToHome: function() {
-				///
+				setTimeout(function() {
+					window.location.href = "http://spot-it.com/";
+				}, 1000);
 			}
 		}
 	});
@@ -113,6 +128,7 @@
 			}
 		},
 		created: function() {
+			this.$parent.setState("Spots");
 			if(!window.currentGeoLocation) {
 				router.go({ name: 'getcoordinate' });
 				return;
@@ -173,6 +189,7 @@
 			}
 		},
 		created: function() {
+			this.$parent.setState("Spot Details", true);
 			this.spotId = this.$route.params.id;
 			this.getDetails();
 		},
@@ -200,7 +217,16 @@
 	/* Main instance */
 
 	var App = Vue.extend({
+		data: function() {
+			return {
+				title: '',
+				back: false
+			}
+		},
 		methods: {
+			onBack: function() {
+				router.go({ name: 'index' });
+			},
 			request: function(url, method, data, success, error) {
 				this.$http({
 					url: config.baseUrl + url,
@@ -218,6 +244,12 @@
 						alert('Failed to connect to server');
 					}
 				});
+			},
+			setState: function(title, back) {
+				this.title = title;
+				if(back) {
+					this.back = true;
+				}
 			}
 		}
 	});

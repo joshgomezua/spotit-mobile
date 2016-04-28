@@ -1,14 +1,16 @@
 <% layout('_layout') -%>
 
 <div class="main container">
-	<router-view></router-view>
+	<div id="titlebar">
+		<a href="#" class="back button" v-show="back" @click.prevent.stop="onBack"></a>
+		<h5 class="title" v-cloak>{{ title }}</h5>
+	</div>
+	<div id="content">
+		<router-view></router-view>
+	</div>
 </div>
 
 <template id="login-template">
-	<h2 class="text-center">
-		Login
-	</h2>
-	<br /><br />
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-3">
 			<form class="form-horizontal" @submit.prevent.stop="login">
@@ -28,16 +30,10 @@
 </template>
 
 <template id="getcoordinate-template">
-	<h2 class="text-center">
-		Request Geolocation
-	</h2>
+	<div class="status" v-show="status != ''">{{ status }}</div>
 </template>
 
 <template id="index-template">
-	<h2 class="text-center">
-		Spots
-	</h2>
-	<br />
 	<div>
 		<div class="status" v-show="status != ''">{{ status }}</div>
 		<div class="spots nearby" v-if="closeSpots.length > 0">
@@ -66,19 +62,17 @@
 </template>
 
 <template id="details-template">
-	<h2 class="text-center">Spot Details</h2>
-	<br />
 	<div class="status" v-show="status != ''">{{ status }}</div>
-	<div ><!--v-if="spot != false"-->
-		<div v-for="picture in spot.pictures">
-			<img :src="picture.imageData" style="margin-bottom: 10px">
+	<div v-if="spot !== false">
+		<div class="pictures">
+			<img v-for="picture in spot.pictures" :src="picture.imageData">
 		</div>
 		<h6>{{ spot.displayCategory.description }}</h6>
 		<h3 class="text-primary"><strong>${{ spot.price }}</strong></h3>
 		<div>{{ spot.location.address1 }} {{ spot.location.address2 }}</div>
 		<div>{{ spot.description }}</div>
 		<br />
-		<div>{{ spot.spotEmail }}</div>
-		<div>{{ spot.spotPhone }}</div>
+		<div><a :href="'mailto: ' + spot.spotEmail">{{ spot.spotEmail }}</a></div>
+		<div><a :href="'tel: ' + spot.spotPhone">{{ spot.spotPhone }}</a></div>
 	</div>
 </template>
