@@ -90,8 +90,8 @@
 				var longitude = position.coords.longitude;
 
 				/// for testing
-				latitude = 39.22361;//39.228464647588128;
-				longitude = -77.249794;//-77.265091989135725;
+				/*latitude = 39.22361;//39.228464647588128;
+				longitude = -77.249794;//-77.265091989135725;*/
 
 				window.currentGeoLocation = {
 					latitude: latitude,
