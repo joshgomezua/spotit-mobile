@@ -50,7 +50,6 @@
 				var _this = this;
 				this.$parent.request('/v1/users/authenticate', 'POST', this.signin, function(response) {
 					if(response.data.statusCode == "USER_AUTH_OK") {
-						//Vue.http.headers.common['auth'] = response.data.token;
 						_this.$parent.token = response.data.token;
 						window.spotItToken = response.data.token;
 						router.go({ name: 'index' });
@@ -275,13 +274,13 @@
 	    	component: detailsComponent
 	    }
 	});
-	router.beforeEach(function (transition) {
-		if(transition.to.path != '/login' && !window.spotItToken/* !Vue.http.headers.common['auth']*/) {
+	/*router.beforeEach(function (transition) {
+		if(transition.to.path != '/login' && !window.spotItToken) {
 			transition.redirect({ name: 'login' });
 		} else {
 			transition.next();
 		}
-	});
+	});*/
 	router.start(App, '#app');
 
 })();
