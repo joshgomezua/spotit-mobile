@@ -40,8 +40,8 @@
 		created: function() {
 			this.$parent.setState("Login");
 			/// for testing
-			this.signin.emailId = 'stefan.miroslav6@gmail.com';
-			this.signin.password = 'dkagh123';
+			/*this.signin.emailId = 'stefan.miroslav6@gmail.com';
+			this.signin.password = '';*/
 		},
 		methods: {
 			login: function() {
@@ -91,8 +91,8 @@
 				var longitude = position.coords.longitude;
 
 				/// for testing
-				latitude = 39.22361;//39.228464647588128;
-				longitude = -77.249794;//-77.265091989135725;
+				/*latitude = 39.22361;//39.228464647588128;
+				longitude = -77.249794;//-77.265091989135725;*/
 
 				window.currentGeoLocation = {
 					latitude: latitude,
