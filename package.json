@@ -2,7 +2,6 @@
   "name": "spotit-mobile",
   "private": true,
   "scripts": {
-    "postinstall": "gulp",
     "start": "gulp; node server.js"
   },
   "devDependencies": {
