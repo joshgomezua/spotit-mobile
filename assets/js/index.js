@@ -71,12 +71,15 @@
 		template: "#getcoordinate-template",
 		data: function() {
 			return {
-				status: ""
+				status: "",
+				debug: true,
+				position: false
 			}
 		},
 		created: function() {
 			this.$parent.setState("Request Geolocation");
 			this.status = "Getting your geolocation...";
+
 			if(!navigator.geolocation) {
 				this.status = "Geolocation is not supported by your browser";
 				this.redirectToHome();
@@ -85,13 +88,31 @@
 
 			var _this = this;
 
-			function success(position) {
+			/// for testing
+			var _this = this;
+			for(var i = 0; i < 2; i++) {
+				navigator.geolocation.watchPosition(function(pos) {
+					_this.position = {
+						lat: pos.coords.latitude,
+						lng: pos.coords.longitude
+					};
+					_this.status = 'Geolocation retrieved.';
+				}, function() {
+				}, {
+					timeout: 1000
+				});
+				if(this.position != false) {
+					break;
+				}
+			}
+
+			/*function success(position) {
 				var latitude  = position.coords.latitude;
 				var longitude = position.coords.longitude;
 
 				/// for testing
-				/*latitude = 39.22361;//39.228464647588128;
-				longitude = -77.249794;//-77.265091989135725;*/
+				//latitude = 39.22361;//39.228464647588128;
+				//longitude = -77.249794;//-77.265091989135725;
 
 				window.currentGeoLocation = {
 					latitude: latitude,
@@ -106,13 +127,24 @@
 				_this.redirectToHome();
 			};
 
-			navigator.geolocation.getCurrentPosition(success, error);
+			navigator.geolocation.getCurrentPosition(success, error);*/
 		},
 		methods: {
 			redirectToHome: function() {
 				setTimeout(function() {
 					window.location.href = "http://spot-it.com/";
 				}, 1000);
+			},
+			nextpage: function() {	/// for testing
+				var latitude  = this.position.latitude;
+				var longitude = this.position.longitude;
+
+				window.currentGeoLocation = {
+					latitude: latitude,
+					longitude: longitude
+				};
+
+				router.go({ name: 'index' });
 			}
 		}
 	});

@@ -31,6 +31,14 @@
 
 <template id="getcoordinate-template">
 	<div class="status" v-show="status != ''">{{ status }}</div>
+	<div class="text-center" v-show="position != false">
+		<br />
+		<button class="btn btn-primary" @click="nextpage">Find Spots</button>
+		<br /><br />
+		<div style="overflow: auto">
+			<img :src="'http://maps.google.com/maps/api/staticmap?zoom=16&size=600x600&maptype=satellite&markers=' + position.lat + ',' + position.lng + '&sensor=false'" style="margin: auto">
+		</div>
+	</div>
 </template>
 
 <template id="index-template">
