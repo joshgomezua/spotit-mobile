@@ -35,6 +35,11 @@
 		<br />
 		<button class="btn btn-primary" @click="nextpage">Find Spots</button>
 		<br /><br />
+		<div style="text-align: left">
+			<strong>Testing information:</strong><br />
+			Latitude: {{ position.lat }}<br />
+			Longitude: {{ position.lng }}<br />
+		</div>
 		<div style="overflow: auto">
 			<img :src="'http://maps.google.com/maps/api/staticmap?zoom=16&size=600x600&maptype=satellite&markers=' + position.lat + ',' + position.lng + '&sensor=false'" style="margin: auto">
 		</div>
